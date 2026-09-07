@@ -1,0 +1,8 @@
+.carregando {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--aco-600);
+}

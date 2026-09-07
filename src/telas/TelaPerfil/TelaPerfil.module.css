@@ -1,0 +1,35 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+.previa {
+  text-align: center;
+}
+
+.foto {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--aco-100);
+  margin-bottom: 12px;
+}
+
+.detalhe {
+  font-size: 13px;
+  color: var(--aco-600);
+  margin-bottom: 8px;
+}
+
+.descricao {
+  font-size: 14px;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}

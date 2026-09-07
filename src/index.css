@@ -1,0 +1,35 @@
+:root {
+  --aco-900: #1b2027;
+  --aco-600: #4a5560;
+  --aco-300: #d4d9de;
+  --aco-100: #e8ebee;
+  --branco: #ffffff;
+  --pulso: #d7263d;
+  --pulso-claro: #fbe7ea;
+  --ok: #2e7d5b;
+  --ok-claro: #e4f1ec;
+  --estrela: #e0a800;
+  --raio: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  background-color: var(--aco-100);
+  color: var(--aco-900);
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}

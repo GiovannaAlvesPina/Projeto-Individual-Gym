@@ -1,0 +1,91 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.voltar {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--aco-600);
+  margin-bottom: 8px;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.subtitulo {
+  font-size: 13px;
+  color: var(--aco-600);
+  margin-bottom: 16px;
+}
+
+.colunas {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.treino {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+}
+
+.cabecalhoTreino {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cabecalhoTreino h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dia {
+  font-size: 11px;
+  background-color: var(--aco-100);
+  color: var(--aco-600);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.exercicios {
+  font-size: 13px;
+  white-space: pre-line;
+}
+
+.observacoes {
+  font-size: 12px;
+  color: var(--aco-600);
+  margin-top: 6px;
+}
+
+.vazio {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--aco-600);
+}
+
+@media (max-width: 900px) {
+  .colunas {
+    grid-template-columns: 1fr;
+  }
+}

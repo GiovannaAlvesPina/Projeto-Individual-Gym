@@ -1,0 +1,16 @@
+.aviso {
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: var(--raio);
+  margin-top: 12px;
+}
+
+.sucesso {
+  background-color: var(--ok-claro);
+  color: var(--ok);
+}
+
+.erro {
+  background-color: var(--pulso-claro);
+  color: var(--pulso);
+}

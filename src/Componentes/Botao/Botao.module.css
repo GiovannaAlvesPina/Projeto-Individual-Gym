@@ -1,0 +1,25 @@
+.botao {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid transparent;
+}
+
+.primario {
+  background-color: var(--pulso);
+  color: var(--branco);
+}
+
+.secundario {
+  background-color: var(--branco);
+  color: var(--aco-900);
+  border-color: var(--aco-900);
+}
+
+.botao:disabled {
+  background-color: var(--aco-600);
+  border-color: var(--aco-600);
+  color: var(--branco);
+  cursor: progress;
+}

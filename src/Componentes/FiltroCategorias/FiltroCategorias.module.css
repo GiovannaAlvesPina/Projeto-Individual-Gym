@@ -1,0 +1,22 @@
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.chip,
+.chipAtivo {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--aco-300);
+  background-color: var(--branco);
+  color: var(--aco-900);
+}
+
+.chipAtivo {
+  background-color: var(--aco-900);
+  border-color: var(--aco-900);
+  color: var(--branco);
+}

@@ -1,0 +1,39 @@
+.campo {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.rotulo {
+  display: block;
+  font-size: 13px;
+  color: var(--aco-600);
+  margin-bottom: 6px;
+}
+
+.controle {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--aco-300);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: var(--branco);
+  color: var(--aco-900);
+  resize: vertical;
+}
+
+.controle:focus {
+  outline: 2px solid var(--aco-900);
+  outline-offset: 1px;
+}
+
+.invalido {
+  border-color: var(--pulso);
+}
+
+.mensagemErro {
+  display: block;
+  font-size: 12px;
+  color: var(--pulso);
+  margin-top: 4px;
+}

@@ -1,0 +1,57 @@
+.area {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.cartao {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.seletor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.opcao,
+.opcaoAtiva {
+  height: 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid var(--aco-900);
+  background-color: var(--branco);
+  color: var(--aco-900);
+}
+
+.opcaoAtiva {
+  background-color: var(--aco-900);
+  color: var(--branco);
+}
+
+.rodape {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--aco-600);
+  text-align: center;
+}
+
+.troca {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--pulso);
+  text-decoration: underline;
+}

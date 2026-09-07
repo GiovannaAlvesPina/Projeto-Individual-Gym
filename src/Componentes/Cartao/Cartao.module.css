@@ -1,0 +1,11 @@
+.cartao {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 24px;
+}
+
+.titulo {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}

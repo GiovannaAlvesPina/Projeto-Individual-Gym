@@ -1,0 +1,29 @@
+.busca {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--aco-300);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 16px;
+}
+
+.busca:focus {
+  outline: 2px solid var(--aco-900);
+  outline-offset: 1px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vazio {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--aco-600);
+}

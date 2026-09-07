@@ -1,0 +1,42 @@
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.foto {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: var(--aco-100);
+}
+
+.nome {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.detalhe {
+  font-size: 13px;
+  color: var(--aco-600);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.vazio {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--aco-600);
+}

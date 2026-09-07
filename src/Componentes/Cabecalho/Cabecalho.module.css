@@ -1,0 +1,51 @@
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background-color: var(--aco-900);
+  color: var(--branco);
+  padding: 20px 24px;
+  border-radius: var(--raio);
+}
+
+.marca {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.usuario {
+  font-size: 13px;
+  color: #b9c1c9;
+}
+
+.menu {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.item,
+.itemAtivo {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--branco);
+}
+
+.itemAtivo {
+  background-color: var(--branco);
+  color: var(--aco-900);
+}
+
+.sair {
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid #4a5560;
+  color: #b9c1c9;
+}

@@ -1,0 +1,52 @@
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.indicador {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  padding: 18px 20px;
+}
+
+.rotulo {
+  font-size: 13px;
+  color: var(--aco-600);
+  margin-bottom: 6px;
+}
+
+.numero {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--aco-100);
+  font-size: 14px;
+}
+
+.data {
+  font-size: 13px;
+  color: var(--aco-600);
+}
+
+.vazio {
+  font-size: 14px;
+  color: var(--aco-600);
+}
+
+@media (max-width: 700px) {
+  .indicadores {
+    grid-template-columns: 1fr;
+  }
+}
