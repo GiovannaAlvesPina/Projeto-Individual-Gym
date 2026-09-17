@@ -9,6 +9,21 @@ import TelaTreinos from "./telas/TelaTreinos/TelaTreinos";
 import TelaDashboard from "./telas/TelaDashboard/TelaDashboard";
 import TelaPersonais from "./telas/TelaPersonais/TelaPersonais";
 import TelaMeusTreinos from "./telas/TelaMeusTreinos/TelaMeusTreinos";
+import {
+  cadastrarUsuarioApi,
+  loginApi,
+  listarPersonaisApi,
+  salvarPerfilApi,
+  listarPlanosApi,
+  cadastrarPlanoApi,
+  listarTreinosApi,
+  cadastrarTreinoApi,
+  listarContratacoesPersonalApi,
+  listarContratacoesAlunoApi,
+  contratarApi,
+  listarAvaliacoesPersonalApi,
+  avaliarApi,
+} from "./servicos/api";
 import styles from "./App.module.css";
 
 const PERFIL_VAZIO = {
@@ -20,13 +35,10 @@ const PERFIL_VAZIO = {
 };
 
 function App() {
-  // sessão
   const [usuario, setUsuario] = useState(null);
-  const [usuarios, setUsuarios] = useState([]);
   const [telaPublica, setTelaPublica] = useState("inicial");
   const [tela, setTela] = useState("dashboard");
 
-  // dados
   const [perfil, setPerfil] = useState(PERFIL_VAZIO);
   const [planos, setPlanos] = useState([]);
   const [treinos, setTreinos] = useState([]);
@@ -35,88 +47,138 @@ function App() {
   const [contratacoes, setContratacoes] = useState([]);
   const [avaliacoes, setAvaliacoes] = useState([]);
 
-  // requisições
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
 
-  async function cadastrarUsuario(dados) {
-    // >>> API: POST /usuarios
-    if (usuarios.some((item) => item.email === dados.email)) {
-      throw new Error("Já existe uma conta com esse e-mail.");
-    }
+  async function carregarDados(logado) {
+    setCarregando(true);
+    setErro("");
 
-    const criado = { ...dados, id: Date.now() };
-    setUsuarios((anteriores) => [...anteriores, criado]);
-    setUsuario(criado);
-    setTela(criado.tipo === "PERSONAL" ? "perfil" : "personais");
+    try {
+      if (logado.tipo === "PERSONAL") {
+        setPerfil({
+          fotoUrl: logado.fotoUrl || "",
+          anosExperiencia: logado.anosExperiencia || "",
+          modalidade: logado.modalidade || "ONLINE",
+          especialidade: logado.especialidade || "",
+          descricao: logado.descricao || "",
+        });
+
+        setPlanos(await listarPlanosApi(logado.id));
+        setContratacoes(await listarContratacoesPersonalApi(logado.id));
+        setAvaliacoes(await listarAvaliacoesPersonalApi(logado.id));
+      } else {
+        setPersonais(await listarPersonaisApi());
+
+        const minhas = await listarContratacoesAlunoApi(logado.id);
+        setContratacoes(minhas);
+
+        if (minhas.length > 0) {
+          setPlanos(await listarPlanosApi(minhas[0].personalId));
+        }
+      }
+    } catch (problema) {
+      setErro(problema.message);
+    } finally {
+      setCarregando(false);
+    }
   }
 
-  async function entrar({ email, senha }) {
-    // >>> API: POST /login
-    const encontrado = usuarios.find(
-      (item) => item.email === email && item.senha === senha
-    );
+  async function cadastrarUsuario(dados) {
+    const criado = await cadastrarUsuarioApi(dados);
+    setUsuario(criado);
+    setTela(criado.tipo === "PERSONAL" ? "perfil" : "personais");
+    await carregarDados(criado);
+  }
 
-    if (!encontrado) {
-      throw new Error("E-mail ou senha incorretos.");
-    }
-
+  async function entrar(credenciais) {
+    const encontrado = await loginApi(credenciais);
     setUsuario(encontrado);
     setTela(encontrado.tipo === "PERSONAL" ? "dashboard" : "personais");
+    await carregarDados(encontrado);
   }
 
   function sair() {
     setUsuario(null);
     setTelaPublica("inicial");
+    setPerfil(PERFIL_VAZIO);
+    setPlanos([]);
+    setTreinos([]);
+    setPersonais([]);
+    setContratacoes([]);
+    setAvaliacoes([]);
+    setErro("");
   }
 
   async function salvarPerfil(dados) {
-    // >>> API: PUT /personais/{id}
+    const salvo = await salvarPerfilApi(usuario.id, dados);
     setPerfil(dados);
+    setUsuario(salvo);
   }
 
   async function cadastrarPlano(dados) {
-    // >>> API: POST /planos
-    const criado = { ...dados, id: Date.now(), personalId: usuario.id };
+    const criado = await cadastrarPlanoApi({ ...dados, personalId: usuario.id });
     setPlanos((anteriores) => [...anteriores, criado]);
   }
 
-  function abrirPlano(plano) {
+  async function abrirPlano(plano) {
     setPlanoAberto(plano);
     setTela("treinos");
-    // >>> API: GET /planos/{id}/treinos
-    setTreinos([]);
+    setCarregando(true);
+    setErro("");
+
+    try {
+      setTreinos(await listarTreinosApi(plano.id));
+    } catch (problema) {
+      setErro(problema.message);
+    } finally {
+      setCarregando(false);
+    }
   }
 
   async function cadastrarTreino(dados) {
-    // >>> API: POST /planos/{id}/treinos
-    const criado = { ...dados, id: Date.now(), planoId: planoAberto.id };
+    const criado = await cadastrarTreinoApi(planoAberto.id, dados);
     setTreinos((anteriores) => [...anteriores, criado]);
   }
 
   async function contratarPersonal(personal) {
-    // >>> API: POST /contratacoes
-    const nova = {
-      id: Date.now(),
-      alunoId: usuario.id,
-      alunoNome: usuario.nome,
-      personalId: personal.id,
-      dataInicio: new Date().toLocaleDateString("pt-BR"),
-    };
-    setContratacoes((anteriores) => [...anteriores, nova]);
+    setErro("");
+
+    try {
+      const nova = await contratarApi({
+        alunoId: usuario.id,
+        personalId: personal.id,
+        dataInicio: new Date().toISOString().slice(0, 10),
+      });
+
+      setContratacoes((anteriores) => [...anteriores, nova]);
+      setPlanos(await listarPlanosApi(personal.id));
+    } catch (problema) {
+      setErro(problema.message);
+    }
   }
 
   async function avaliarPlano(planoId, estrelas) {
-    // >>> API: POST /avaliacoes
-    setAvaliacoes((anteriores) => [
-      ...anteriores.filter(
-        (item) => !(item.planoId === planoId && item.alunoId === usuario.id)
-      ),
-      { id: Date.now(), planoId, alunoId: usuario.id, estrelas },
-    ]);
+    setErro("");
+
+    try {
+      const salva = await avaliarApi({
+        alunoId: usuario.id,
+        planoId: planoId,
+        estrelas: estrelas,
+      });
+
+      setAvaliacoes((anteriores) => [
+        ...anteriores.filter(
+          (item) => !(item.planoId === planoId && item.alunoId === usuario.id)
+        ),
+        salva,
+      ]);
+    } catch (problema) {
+      setErro(problema.message);
+    }
   }
 
-  // tela inicial: fica FORA do wrapper para ocupar a tela inteira
   if (!usuario && telaPublica === "inicial") {
     return (
       <TelaInicial
